@@ -108,6 +108,20 @@ func (cc *ConsulClient) Float(path string) float64 {
 	}
 }
 
+func (cc *ConsulClient) Map(path string) map[string]interface{} {
+	v := cc.getValue(path)
+	if v == nil {
+		return nil
+	}
+
+	switch v.(type) {
+	case map[string]interface{}:
+		return v.(map[string]interface{})
+	default:
+		return nil
+	}
+}
+
 func (cc *ConsulClient) initial(data map[string]interface{}) error {
 	for k, c := range data {
 		kv, _, err := cc.client.KV().Get(k, nil)

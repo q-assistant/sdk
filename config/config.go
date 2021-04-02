@@ -6,4 +6,5 @@ type Config interface {
 	String(key string) string
 	Int(key string) int
 	Float(key string) float64
+	Map(key string) map[string]interface{}
 }
