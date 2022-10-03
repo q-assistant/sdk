@@ -1,17 +1,17 @@
 package logger
 
-import "github.com/sirupsen/logrus"
+import (
+	"go.uber.org/zap"
+)
 
 type Logger struct {
-	log *logrus.Logger
+	log *zap.SugaredLogger
 }
 
 func NewLogger(service string) *Logger {
-	log := logrus.New()
-	log.WithField("service", service)
-
+	log, _ := zap.NewProduction()
 	return &Logger{
-		log: log,
+		log: log.Named(service).Sugar(),
 	}
 }
 
